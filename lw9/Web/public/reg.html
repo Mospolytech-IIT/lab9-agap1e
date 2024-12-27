@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Register</title>
+<style>
+td {padding:5px;}
+button{margin: 5px;}
+</style>
+</head>
+<body>
+    <h2>Регистрация</h2>
+    <div id="message"></div>
+    <p>
+        Usernmae: <br /> 
+        <input name="username" id="username" />
+    </p>
+     <p>
+        Email: <br /> 
+        <input name="useremail" id="useremail" />
+    </p>
+    <p>
+        Password: <br /> 
+        <input name="userpassword" id="userpassword" />
+    </p>
+    <button onclick="send()">Зарегистрироваться</button>
+  
+    <script>
+        async function send(){
+            // получаем введеное в поле имя и возраст
+            const username = document.getElementById("username").value;
+            const useremail = document.getElementById("useremail").value;
+            const userpassword = document.getElementById("userpassword").value;
+
+            // отправляем запрос
+            const response = await fetch("/create/user", {
+                    method: "POST",
+                    headers: { "Accept": "application/json", "Content-Type": "application/json" },
+                    body: JSON.stringify({ 
+                        username: username,
+                        email: useremail,
+                        password: userpassword
+                    })
+            });
+            if (response.ok) {
+            alert("Пользователь добавлен!");
+        }
+        else{
+            console.log(response);
+        }
+    }
+    </script>
+</body>
+</html>
