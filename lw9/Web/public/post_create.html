@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Post</title>
+<style>
+td {padding:5px;}
+button{margin: 5px;}
+</style>
+</head>
+<body>
+    <h2>Создание поста</h2>
+    <div id="message"></div>
+    <p>
+        Title: <br /> 
+        <input name="title" id="title" />
+    </p>
+     <p>
+        Content: <br /> 
+        <input name="content" id="content" />
+    </p>
+    <p>
+        Username: <br /> 
+        <input name="username" id="username" />
+    </p>
+    <button onclick="send()">Зарегистрироваться</button>
+  
+    <script>
+        async function send(){
+            // получаем введеное в поле имя и возраст
+            const title = document.getElementById("title").value;
+            const content = document.getElementById("content").value;
+            const username = document.getElementById("username").value;
+
+            // отправляем запрос
+            const response = await fetch("/create/post", {
+                    method: "POST",
+                    headers: { "Accept": "application/json", "Content-Type": "application/json" },
+                    body: JSON.stringify({ 
+                        title: title,
+                        content: content,
+                        username: username
+                    })
+            });
+            if (response.ok) {
+            alert("Пост создан!");
+        }
+        else{
+            console.log(response);
+        }
+    }
+    </script>
+</body>
+</html>
